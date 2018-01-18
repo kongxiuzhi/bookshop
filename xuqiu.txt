@@ -1,0 +1,6 @@
+多数据库
+logging
+cache
+Celery - 分布式任务队列
+redis
+

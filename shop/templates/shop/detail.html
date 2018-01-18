@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load static %}
+
+{%block title %}
+	Products
+{% endblock %}
+
+{% block content %}
+	<div>
+		<img src="{{ book.cover.url }}" class="img-responsive" alt="cover" style="float: left;">
+		<h1>{{ book.title }}</h1>
+		<h3>miaoshu</h3>
+		<p>{{ book.summary|truncatewords:100|linebreaks}}</p>
+		<hr>
+		<p>author:{{ book.autor}}{% if book.translator %}<span>yizhe:{{ book.translator }}</span>{% endif %}
+		<span>chubanshe:{{ book.publisher }}</span> <span>chubanshijian:{{ book.pubdate|date:"Y/m"}}</span></p>
+		<p>price:{{ book.price }}</p>
+		<hr>
+		<form action="{% url 'cart:cart_add' book.id %}" method="post">
+			{{cart_product_form}}
+			{% csrf_token %}
+			<input type="submit" name="" value="Add to cart">
+		</form>
+	</div>
+{% endblock %}

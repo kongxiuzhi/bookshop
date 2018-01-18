@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% block title %}
+    index
+{% endblock %}
+
+{% block content%}
+<div class="col-sm-3 ">
+    <div>
+        <h3>Categories</h3>
+        <ul>
+            <li {% if not category %} class="selected" {% endif %}>
+                <a href="{% url 'shop:index' %}">All</a>
+            </li>
+            {% for c in categories %}
+                <li {% if category.id == c.id %} class="selected" {% endif %} >
+                    <a href="{{ c.get_absolute_url }}">{{ c.name }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+
+<div class="col-sm-9 ">
+    <div id="myCarousel" class="carousel slide">
+        <!-- 轮播（Carousel）指标 -->
+        <ol class="carousel-indicators">
+            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+            <li data-target="#myCarousel" data-slide-to="1"></li>
+            <li data-target="#myCarousel" data-slide-to="2"></li>
+        </ol>   
+        <!-- 轮播（Carousel）项目 -->
+        <div class="carousel-inner">
+            <div class="item active">
+                <img src="holder.js/900x200?text=First" alt="First slide">
+            </div>
+            <div class="item">
+                <img src="holder.js/900x200?text=Second" alt="Second slide">
+            </div>
+            <div class="item">
+                <img src="holder.js/900x200?text=Third" alt="Third slide">
+            </div>
+        </div>
+        <!-- 轮播（Carousel）导航 -->
+        <a class="left carousel-control" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+        <a class="right carousel-control" href="#myCarousel" data-slide="next">&rsaquo;</a>
+    </div>
+    <div>
+    <h1>{% if category %} {{ category.name }} {% else %} Products {% endif %}</h1>
+    <div class="row">
+    {% for book in booklist %}
+
+            <div class="col-sm-4 com-md-3">
+                <div class="thumbnail">
+                    <a href="{{ book.get_absolute_url }}">
+                    <img src="{{book.cover.url }}" class="img-responsive" alt="picture">
+                    </a>
+                    <div class="caption">
+                        <a href="{{ book.get_absolute_url }}">
+                        <h3>{{ book.title }}</h3>
+                        </a>
+                        <p>author: {{ book.author }}</p>
+                        <p>￥价格: {{book.price }}</p>
+                    </div>
+                </div>
+            </div>
+    {% endfor %}
+    </div>
+</div>
+{% endblock %}
